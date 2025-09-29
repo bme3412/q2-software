@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     const queryEmbedding = embeddingResponse.data[0].embedding;
 
     // Build filter for selected sources if provided
-    let filter: Record<string, any> | undefined;
+    let filter: Record<string, string[] | { $in: string[] }> | undefined;
     if (body.selectedSources && body.selectedSources.length > 0) {
       const normalizedTickers = body.selectedSources.map(ticker => ticker.toUpperCase());
       filter = {
@@ -239,10 +239,11 @@ ${contextText}`;
       }
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Pinecone RAG error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json({ 
-      error: `RAG query failed: ${error.message}` 
+      error: `RAG query failed: ${errorMessage}` 
     }, { status: 500 });
   }
 }

@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import SourcesPanel from './components/SourcesPanel';
 import ChatPanel from './components/ChatPanel';
 import StudioPanel from './components/StudioPanel';
-import { COMPANY_DATA } from './components/companyData';
 
 export default function Home() {
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
@@ -17,7 +16,6 @@ export default function Home() {
       {/* Sources Panel */}
       <div className="w-80 border-r border-gray-200 flex flex-col">
         <SourcesPanel 
-          selectedSources={selectedSources}
           onSourcesChange={setSelectedSources}
         />
       </div>

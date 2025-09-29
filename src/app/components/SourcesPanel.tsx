@@ -5,13 +5,12 @@ import { useState } from 'react';
 // Use shared types from companyData to avoid duplication
 
 interface SourcesPanelProps {
-  selectedSources: string[];
   onSourcesChange: (sources: string[]) => void;
 }
 
 import { COMPANY_DATA, type SourceGroup } from './companyData';
 
-export default function SourcesPanel({ selectedSources, onSourcesChange }: SourcesPanelProps) {
+export default function SourcesPanel({ onSourcesChange }: SourcesPanelProps) {
   const [sourceGroups, setSourceGroups] = useState<SourceGroup[]>(COMPANY_DATA);
   const [selectAll, setSelectAll] = useState(false);
 
@@ -95,17 +94,6 @@ export default function SourcesPanel({ selectedSources, onSourcesChange }: Sourc
     setSourceGroups(updatedGroups);
   };
 
-  const getSourceIcon = (type: 'earnings') => {
-    return (
-      <div className="w-4 h-4 bg-blue-100 border border-blue-300 rounded flex items-center justify-center">
-        <div className="w-2 h-2 bg-blue-500 rounded"></div>
-      </div>
-    );
-  };
-
-  const getTotalSources = () => {
-    return sourceGroups.reduce((total, group) => total + group.sources.length, 0);
-  };
 
   return (
     <div className="flex flex-col h-full bg-white">
