@@ -2,6 +2,15 @@ import { NextResponse } from 'next/server';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { OpenAI } from 'openai';
 
+interface EarningsMetadata {
+  company?: string;
+  ticker?: string;
+  section?: string;
+  text?: string;
+  category?: string;
+  call_date?: string;
+}
+
 type PostBody = {
   message: string;
   selectedSources?: string[];
@@ -75,7 +84,7 @@ export async function POST(request: Request) {
     const contexts = queryResponse.matches
       .filter(match => match.score && match.score > 0.55) // Lower threshold for much more comprehensive context
       .map(match => {
-        const metadata = match.metadata as any;
+        const metadata = match.metadata as EarningsMetadata;
         const company = metadata?.company || 'Unknown';
         const ticker = metadata?.ticker || 'Unknown';
         const section = metadata?.section || 'earnings';

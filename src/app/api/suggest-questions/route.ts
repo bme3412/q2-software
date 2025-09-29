@@ -2,6 +2,22 @@ import { NextResponse } from 'next/server';
 import { Pinecone } from '@pinecone-database/pinecone';
 import { OpenAI } from 'openai';
 
+interface EarningsMetadata {
+  company?: string;
+  ticker?: string;
+  section?: string;
+  text?: string;
+  category?: string;
+  call_date?: string;
+}
+
+interface ContextItem {
+  company: string;
+  ticker: string;
+  text: string;
+  category: string;
+}
+
 type PostBody = {
   selectedSources: string[];
 };
@@ -49,7 +65,7 @@ export async function POST(request: Request) {
       'enterprise business model strategy'
     ];
 
-    const allContexts: any[] = [];
+    const allContexts: ContextItem[] = [];
 
     // Sample content from multiple angles - get more context for better questions
     for (const query of sampleQueries.slice(0, 6)) { // Get more context samples
@@ -73,7 +89,7 @@ export async function POST(request: Request) {
         const contexts = queryResponse.matches
           .filter(match => match.score && match.score > 0.7)
           .map(match => {
-            const metadata = match.metadata as any;
+            const metadata = match.metadata as EarningsMetadata;
             return {
               company: metadata?.company || 'Unknown',
               ticker: metadata?.ticker || 'Unknown',
@@ -258,10 +274,11 @@ Return only the questions, numbered 1-8.`;
       }
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Question suggestion error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json({ 
-      error: `Failed to generate suggestions: ${error.message}` 
+      error: `Failed to generate suggestions: ${errorMessage}` 
     }, { status: 500 });
   }
 }
