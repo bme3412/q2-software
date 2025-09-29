@@ -1,0 +1,13 @@
+Environment Variables Setup
+=============================
+
+Create a file named ".env.local" in this directory with:
+
+PINECONE_API_KEY=your_pinecone_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+
+Get your API keys from:
+- Pinecone: https://app.pinecone.io/
+- OpenAI: https://platform.openai.com/api-keys
+
+The new Pinecone RAG endpoint is at: /api/pinecone-rag
