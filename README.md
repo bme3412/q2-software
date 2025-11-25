@@ -1,12 +1,12 @@
 # Q2 2025 Software Earnings Analysis
 
-An AI-powered earnings analysis platform for Q2 2025 software company earnings calls. Built with Next.js, TypeScript, and integrated with Pinecone for semantic search and OpenAI for intelligent analysis.
+An AI-powered earnings analysis platform for Q2 2025 software company earnings calls. Built with Next.js, TypeScript, and integrated with Pinecone for semantic search and Anthropic API for intelligent analysis.
 
 ## Features
 
 ### 🔍 **Intelligent Earnings Analysis**
 - Ask natural language questions about software company earnings
-- AI-powered responses using GPT-4 with earnings call context
+- AI-powered responses using Anthropic with earnings call context
 - Support for brief, detailed, and comprehensive response levels
 - Plain text responses optimized for readability
 
@@ -30,7 +30,7 @@ An AI-powered earnings analysis platform for Q2 2025 software company earnings c
 
 - **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes
-- **AI/ML**: OpenAI GPT-4, Pinecone Vector Database
+- **AI/ML**: Anthropic, Pinecone Vector Database
 - **Storage**: LocalStorage for Research Library
 - **Deployment**: Vercel-ready
 
